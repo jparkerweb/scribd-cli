@@ -22,15 +22,22 @@ Run it straight from GitHub with `npx` — no manual clone, no global install:
 npx github:jparkerweb/scribd-cli
 ```
 
-That fetches the repo, builds it, downloads a managed Chromium, and launches the app. _(Once the
-package is published to npm, this shortens to `npx scribd-cli`.)_
+That fetches the repo, downloads a managed Chromium, and launches the app — no clone, no global
+install. _(Once the package is published to npm, this shortens to `npx scribd-cli`.)_
 
-To install it as a persistent `scribd-cli` command on your `PATH`:
+To install it as a **persistent `scribd-cli` command** on your `PATH`, clone and install globally:
 
 ```powershell
-npm install -g github:jparkerweb/scribd-cli
+git clone git@github.com:jparkerweb/scribd-cli.git
+cd scribd-cli
+npm install -g .
 scribd-cli
 ```
+
+> **Note:** `npm install -g github:jparkerweb/scribd-cli` (global install straight from git) can
+> fail on Windows due to an npm tar-extraction bug that drops dependency files — prefer
+> `npx github:…` (above) or the clone + `npm install -g .` shown here. Publishing to npm avoids the
+> issue entirely (`npm install -g scribd-cli`).
 
 See [Install globally](#install-globally-run-scribd-cli-from-anywhere) for all options and how to
 uninstall.
@@ -81,14 +88,17 @@ npm run dev -- --debug
 
 The package declares a `bin`, so it can be put on your `PATH` as a real command. Pick one:
 
-**A. Install straight from GitHub** (no manual clone — npm builds and fetches Chromium for you):
+**A. From a local clone — install a global copy** (recommended for a persistent command):
 
 ```powershell
-npm install -g github:jparkerweb/scribd-cli
+git clone git@github.com:jparkerweb/scribd-cli.git
+cd scribd-cli
+npm install -g .
 scribd-cli
 ```
 
-**B. From a local clone** — link it (a symlink that tracks your working copy; great while developing):
+**B. From a local clone — `npm link`** (a symlink that tracks your working copy; great while
+developing — rebuild with `npm run build` to refresh it):
 
 ```powershell
 cd scribd-cli
@@ -97,13 +107,15 @@ npm link
 scribd-cli
 ```
 
-**C. From a local clone** — install a global copy:
+**C. Straight from GitHub, no clone** — use `npx` (see [Quick start](#quick-start-no-clone)):
 
 ```powershell
-cd scribd-cli
-npm install -g .
-scribd-cli
+npx github:jparkerweb/scribd-cli
 ```
+
+> Avoid `npm install -g github:jparkerweb/scribd-cli`: on some Windows/npm setups it reports
+> success but silently drops files during extraction (an npm tar bug), leaving a broken command.
+> Use option A or `npx` instead. Publishing to npm sidesteps this (`npm install -g scribd-cli`).
 
 In every case npm creates a `scribd-cli` launcher in its global bin directory (run
 `npm config get prefix` to see it — on Windows it's `…\AppData\Roaming\npm`, which the Node
