@@ -30,8 +30,7 @@
     "node": ">=20"
   },
   "files": [
-    "dist",
-    "scripts/postinstall.mjs"
+    "dist"
   ],
   "scripts": {
     "dev": "tsx src/index.ts",
@@ -40,7 +39,7 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "prepack": "tsc",
-    "postinstall": "node scripts/postinstall.mjs"
+    "postinstall": "node -e \"try{const cp=require('child_process');const path=require('path');const cli=path.join(path.dirname(require.resolve('playwright/package.json')),'cli.js');cp.execFileSync(process.execPath,[cli,'install','chromium'],{stdio:'inherit'})}catch(e){console.warn('[scribd-cli] Could not auto-install Chromium. Run: npx playwright install chromium')}\""
   },
   "dependencies": {
     "ink": "^5.0.1",
