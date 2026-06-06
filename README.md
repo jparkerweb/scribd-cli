@@ -14,80 +14,21 @@ print-to-PDF) and an [Ink](https://github.com/vadimdemedes/ink) terminal UI.
 
 ---
 
-## Quick start (no clone)
+## Install
 
-Run it straight from GitHub with `npx` — no manual clone, no global install:
+Requires **Node.js ≥ 20**. Every option below auto-downloads a managed Chromium (~150 MB) on first
+run via Playwright's `postinstall` — you never install a browser yourself. If that step is ever
+skipped, run `npx playwright install chromium` once.
+
+### Run it once — no install, no clone
 
 ```powershell
 npx github:jparkerweb/scribd-cli
 ```
 
-That fetches the repo, downloads a managed Chromium, and launches the app — no clone, no global
-install. _(Once the package is published to npm, this shortens to `npx scribd-cli`.)_
+Fetches the repo and launches the app; nothing is added to your `PATH`.
 
-To install it as a **persistent `scribd-cli` command** on your `PATH` — still no manual clone —
-run the bundled installer once:
-
-```powershell
-npx github:jparkerweb/scribd-cli install-global
-scribd-cli
-```
-
-The `install-global` subcommand installs a global copy from the package npx just fetched (via
-`npm install -g <dir>`), which is reliable. _(Avoid `npm install -g github:jparkerweb/scribd-cli`:
-on some Windows/npm setups it reports success but silently drops files during extraction. Once the
-package is published to npm this all shortens to `npx scribd-cli` / `npm install -g scribd-cli`.)_
-
-See [Install globally](#install-globally-run-scribd-cli-from-anywhere) for all options and how to
-uninstall.
-
-## Install (from a clone)
-
-For development, or to run from source:
-
-```powershell
-git clone git@github.com:jparkerweb/scribd-cli.git
-cd scribd-cli
-npm install
-```
-
-> Prefer HTTPS? Use `git clone https://github.com/jparkerweb/scribd-cli.git` instead.
-
-On first install, a `postinstall` script runs `playwright install chromium`, which downloads a
-managed Chromium build (~150 MB). You do **not** need to install a browser yourself. If that step
-is ever skipped or fails, run it manually:
-
-```powershell
-npx playwright install chromium
-```
-
-## Usage
-
-Run in dev mode (TypeScript directly via `tsx`):
-
-```powershell
-npm run dev
-```
-
-Or build once and run the compiled CLI:
-
-```powershell
-npm run build
-npm start          # = node dist/index.js
-# or, if linked globally: scribd-cli
-```
-
-Enable verbose diagnostics (printed to stderr) with `--debug`:
-
-```powershell
-npm run dev -- --debug
-```
-
-### Install globally (run `scribd-cli` from anywhere)
-
-The package declares a `bin`, so it can be put on your `PATH` as a real command. Pick one:
-
-**A. No clone — one-line installer** (recommended):
+### Install a global `scribd-cli` command — no clone (recommended)
 
 ```powershell
 npx github:jparkerweb/scribd-cli install-global
@@ -95,41 +36,47 @@ scribd-cli
 ```
 
 The `install-global` subcommand installs a global copy from the package npx just fetched
-(`npm install -g <dir>` under the hood) — reliable, and no compiler needed since `dist/` ships
-prebuilt.
+(`npm install -g <dir>` under the hood) — reliable, with no compiler needed since `dist/` ships
+prebuilt. npm puts the launcher in its global bin dir (`npm config get prefix`; on Windows that's
+`…\AppData\Roaming\npm`, already on `PATH`). Remove it later with `npm rm -g scribd-cli`.
 
-**B. From a local clone — install a global copy:**
+> **Avoid** `npm install -g github:jparkerweb/scribd-cli` — on some Windows/npm setups it reports
+> success but silently drops files during extraction (an npm tar bug), leaving a broken command.
+> Use the `install-global` form above. _(Once published to npm, all of this shortens to
+> `npx scribd-cli` / `npm install -g scribd-cli`.)_
 
-```powershell
-git clone git@github.com:jparkerweb/scribd-cli.git
-cd scribd-cli
-npm install -g .
-scribd-cli
-```
-
-**C. From a local clone — `npm link`** (a symlink that tracks your working copy; great while
-developing — rebuild with `npm run build` to refresh it):
+### From a clone — development / from source
 
 ```powershell
+git clone git@github.com:jparkerweb/scribd-cli.git   # or https://github.com/jparkerweb/scribd-cli.git
 cd scribd-cli
 npm install
-npm link
-scribd-cli
 ```
 
-> Avoid `npm install -g github:jparkerweb/scribd-cli`: on some Windows/npm setups it reports
-> success but silently drops files during extraction (an npm tar bug), leaving a broken command.
-> Use option A instead. Publishing to npm sidesteps this (`npm install -g scribd-cli`).
+From a clone you can run it with `npm run dev`, install a global copy with `npm install -g .`, or
+create a live-updating global command with `npm link` (rebuild via `npm run build` to refresh it).
 
-In every case npm creates a `scribd-cli` launcher in its global bin directory (run
-`npm config get prefix` to see it — on Windows it's `…\AppData\Roaming\npm`, which the Node
-installer adds to `PATH`). If the command isn't found afterward, make sure that directory is on
-your `PATH` and open a new terminal.
+## Usage
 
-To remove the global command later:
+Dev mode (runs the TypeScript directly via `tsx`):
 
 ```powershell
-npm rm -g scribd-cli      # or: npm unlink -g scribd-cli  (for option B)
+npm run dev
+```
+
+Built CLI:
+
+```powershell
+npm run build
+npm start          # = node dist/index.js
+# or, if installed/linked globally: scribd-cli
+```
+
+Verbose diagnostics (printed to stderr) with `--debug`:
+
+```powershell
+npm run dev -- --debug
+# or, when installed globally: scribd-cli --debug
 ```
 
 ### What you'll see
