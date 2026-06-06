@@ -30,7 +30,8 @@
     "node": ">=20"
   },
   "files": [
-    "dist"
+    "dist",
+    "scripts/postinstall.mjs"
   ],
   "scripts": {
     "dev": "tsx src/index.ts",
@@ -39,7 +40,7 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "prepack": "tsc",
-    "postinstall": "playwright install chromium"
+    "postinstall": "node scripts/postinstall.mjs"
   },
   "dependencies": {
     "ink": "^5.0.1",
