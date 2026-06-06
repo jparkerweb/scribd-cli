@@ -1,0 +1,38 @@
+{
+  "name": "scribd-cli",
+  "version": "1.0.0",
+  "description": "Interactive Windows terminal app that renders a Scribd embed document and saves a visually faithful PDF to disk.",
+  "type": "module",
+  "bin": {
+    "scribd-cli": "dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "prepare": "tsc",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "ink": "^5.0.1",
+    "ink-spinner": "^5.0.0",
+    "ink-text-input": "^6.0.0",
+    "playwright": "^1.48.0",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}
