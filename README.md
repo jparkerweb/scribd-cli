@@ -1,5 +1,7 @@
 # scribd-cli
 
+<img src="https://github.com/jparkerweb/scribd-cli/blob/main/scribd-cli.jpg?raw=true" alt="banner" style="max-height:300px;">
+
 An interactive Windows terminal app (TUI) that takes a Scribd **document ID** — or a pasted
 document URL — headless-renders the embed page, fully loads every lazy-loaded page, and saves a
 **visually faithful PDF** of the document to `./downloads/<id>.pdf`.
