@@ -14,11 +14,38 @@ print-to-PDF) and an [Ink](https://github.com/vadimdemedes/ink) terminal UI.
 
 ---
 
-## Install
+## Quick start (no clone)
+
+Run it straight from GitHub with `npx` — no manual clone, no global install:
 
 ```powershell
+npx github:jparkerweb/scribd-cli
+```
+
+That fetches the repo, builds it, downloads a managed Chromium, and launches the app. _(Once the
+package is published to npm, this shortens to `npx scribd-cli`.)_
+
+To install it as a persistent `scribd-cli` command on your `PATH`:
+
+```powershell
+npm install -g github:jparkerweb/scribd-cli
+scribd-cli
+```
+
+See [Install globally](#install-globally-run-scribd-cli-from-anywhere) for all options and how to
+uninstall.
+
+## Install (from a clone)
+
+For development, or to run from source:
+
+```powershell
+git clone git@github.com:jparkerweb/scribd-cli.git
+cd scribd-cli
 npm install
 ```
+
+> Prefer HTTPS? Use `git clone https://github.com/jparkerweb/scribd-cli.git` instead.
 
 On first install, a `postinstall` script runs `playwright install chromium`, which downloads a
 managed Chromium build (~150 MB). You do **not** need to install a browser yourself. If that step
@@ -48,6 +75,45 @@ Enable verbose diagnostics (printed to stderr) with `--debug`:
 
 ```powershell
 npm run dev -- --debug
+```
+
+### Install globally (run `scribd-cli` from anywhere)
+
+The package declares a `bin`, so it can be put on your `PATH` as a real command. Pick one:
+
+**A. Install straight from GitHub** (no manual clone — npm builds and fetches Chromium for you):
+
+```powershell
+npm install -g github:jparkerweb/scribd-cli
+scribd-cli
+```
+
+**B. From a local clone** — link it (a symlink that tracks your working copy; great while developing):
+
+```powershell
+cd scribd-cli
+npm install
+npm link
+scribd-cli
+```
+
+**C. From a local clone** — install a global copy:
+
+```powershell
+cd scribd-cli
+npm install -g .
+scribd-cli
+```
+
+In every case npm creates a `scribd-cli` launcher in its global bin directory (run
+`npm config get prefix` to see it — on Windows it's `…\AppData\Roaming\npm`, which the Node
+installer adds to `PATH`). If the command isn't found afterward, make sure that directory is on
+your `PATH` and open a new terminal.
+
+To remove the global command later:
+
+```powershell
+npm rm -g scribd-cli      # or: npm unlink -g scribd-cli  (for option B)
 ```
 
 ### What you'll see

@@ -1,8 +1,28 @@
 {
   "name": "scribd-cli",
   "version": "1.0.0",
-  "description": "Interactive Windows terminal app that renders a Scribd embed document and saves a visually faithful PDF to disk.",
+  "description": "Interactive terminal app (TUI) that renders a Scribd embed document and saves a visually faithful PDF to disk.",
   "type": "module",
+  "license": "Apache-2.0",
+  "author": "Justin Parker <jparkerweb@gmail.com>",
+  "keywords": [
+    "scribd",
+    "pdf",
+    "cli",
+    "tui",
+    "ink",
+    "playwright",
+    "download",
+    "document"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jparkerweb/scribd-cli.git"
+  },
+  "homepage": "https://github.com/jparkerweb/scribd-cli#readme",
+  "bugs": {
+    "url": "https://github.com/jparkerweb/scribd-cli/issues"
+  },
   "bin": {
     "scribd-cli": "dist/index.js"
   },
@@ -18,7 +38,7 @@
     "start": "node dist/index.js",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
-    "prepare": "tsc",
+    "prepack": "tsc",
     "postinstall": "playwright install chromium"
   },
   "dependencies": {

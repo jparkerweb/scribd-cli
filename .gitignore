@@ -1,6 +1,8 @@
 node_modules/
-dist/
 downloads/
+
+# dist/ is intentionally committed so the package can be installed straight from
+# GitHub (npm/npx github:…) without a build step on the user's machine.
 
 # Editor / OS noise
 .DS_Store
